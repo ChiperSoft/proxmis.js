@@ -12,7 +12,7 @@ To install:
 To use:
 
 ```js
-	var proxmis = require('proxmis');
+var proxmis = require('proxmis');
 ```
 
 ##Usage

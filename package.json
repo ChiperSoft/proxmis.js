@@ -1,7 +1,7 @@
 {
   "name": "proxmis",
   "version": "0.1.0",
-  "description": "A library for proxying traditional node.js callbacks to promises.",
+  "description": "A generator for creating promises that can be used as node.js callbacks.",
   "main": "proxmis.js",
   "scripts": {
     "test": "nodeunit test.js"
