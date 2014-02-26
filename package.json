@@ -1,0 +1,21 @@
+{
+  "name": "proxmis",
+  "version": "0.1.0",
+  "description": "A library for proxying traditional node.js callbacks to promises.",
+  "main": "proxmis.js",
+  "scripts": {
+    "test": "nodeunit test.js"
+  },
+  "keywords": [
+    "promise",
+    "callback"
+  ],
+  "author": "Jarvis Badgley <chiper@chipersoft.com> (http://chipersoft.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "es6-promise": "~0.1.1"
+  },
+  "devDependencies": {
+    "nodeunit": "~0.8.6"
+  }
+}
