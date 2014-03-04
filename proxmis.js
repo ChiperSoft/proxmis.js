@@ -24,7 +24,7 @@ var proxmis = function (callback) {
 
 	// Create a `then` proxy function that calls with the correct context.
 	callable.then = function () {
-		defer.then.apply(defer, arguments);
+		return defer.then.apply(defer, arguments);
 	};
 
 	return callable;

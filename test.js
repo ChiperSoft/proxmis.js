@@ -154,5 +154,22 @@ exports['Wrapper with a rejection'] = function (test) {
 	);
 };
 
+exports['Chained then'] = function (test) {
+	test.expect(2);
+
+	var prox = proxmis();
+
+	var defer = prox.then(function (result) {
+		test.ok(true);
+		return result;
+	});
+	defer = defer.then(function (result) {
+		test.equal(result, 10);
+		test.done();
+	});
+
+	prox(null, 10);
+};
+
 
 
