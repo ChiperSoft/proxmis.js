@@ -218,3 +218,21 @@ exports['Promise Resolves with all arguments'] = function (test) {
 
 	prox(20, 10);
 };
+
+exports['Wrapper supports options'] = function (test) {
+	test.expect(2);
+
+	proxmis.wrap(function (callback) {
+		test.ok('Invoked');
+		callback(10);
+	}, {noError:true}).then(
+		function (result) {
+			test.equal(result, 10);
+			test.done();
+		},
+		function (error) {
+			test.ok(false, 'Promise Rejected');
+			test.done();
+		}
+	);
+};

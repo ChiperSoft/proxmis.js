@@ -46,8 +46,8 @@ var proxmis = function (options) {
 	return callable;
 };
 
-proxmis.wrap = function (actionable) {
-	var proxy = proxmis();
+proxmis.wrap = function (actionable, options) {
+	var proxy = proxmis(options);
 	actionable(proxy);
 	return proxy;
 };
