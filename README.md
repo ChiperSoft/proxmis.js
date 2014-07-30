@@ -29,6 +29,32 @@ callback.then(function (stats) {
 });
 ```
 
+The first argument on `proxmis()` can optionally be another callback to be invoked before the promise resolves, or an object containing extra options for how the promise will be resolved.
+
+```js
+function fileStatWithCallbackOrPromise(cb) {
+	var prox = proxmis(cb);
+	fs.stat('/var', prox);
+	return prox;
+}
+```
+
+```js
+var prox = proxmis({noError: true});
+prox('first argument resolves', 'all other arguments ignored');
+prox.then(function (result) {
+	// result = 'first argument resolves'
+});
+```
+
+```js
+var prox = proxmis({allArgs: true});
+prox('each argument resolves', 'together as', 'an array');
+prox.then(function (result) {
+	// result = ['each argument resolves', 'together as', 'an array']
+});
+```
+
 Proxmis also provides a routine for wrapping a traditional call in a closure, directly returning a promise.
 
 ```js
