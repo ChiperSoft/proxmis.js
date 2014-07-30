@@ -27,6 +27,10 @@ var proxmis = function (callback) {
 		return defer.then.apply(defer, arguments);
 	};
 
+	callable.catch = function () {
+		return defer.catch.apply(defer, arguments);
+	};
+
 	return callable;
 };
 

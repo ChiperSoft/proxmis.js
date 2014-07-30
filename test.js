@@ -171,5 +171,15 @@ exports['Chained then'] = function (test) {
 	prox(null, 10);
 };
 
+exports['Promise Rejects into .catch()'] = function (test) {
+	test.expect(1);
+	var prox = proxmis();
 
+	prox.catch(function (error) {
+		test.equal(error, 'Failure');
+		test.done();
+	});
+
+	prox('Failure', 10);
+};
 
