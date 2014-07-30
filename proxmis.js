@@ -1,20 +1,32 @@
 
-
 var Promise = require('es6-promise').Promise;
 
-var proxmis = function (callback) {
+var proxmis = function (options) {
 	var defer, callable;
+	var callback;
+	if (typeof options === 'function') {
+		callback = options;
+	} else {
+		options = options || {};
+		callback = options.callback;
+	}
 
 	defer = new Promise(function (resolve, reject) {
 		callable = function (err, data) {
 			if (callback) {
-				callback(err, data);
+				callback.apply(this, arguments);
 			}
 
-			if (err) {
-				reject(err);
+			if (options.noError) {
+				resolve(err);
+			} else if (options.allArgs) {
+				resolve(Array.prototype.slice.call(arguments));
 			} else {
-				resolve(data);
+				if (err) {
+					reject(err);
+				} else {
+					resolve(data);
+				}
 			}
 		};
 	});

@@ -183,3 +183,38 @@ exports['Promise Rejects into .catch()'] = function (test) {
 	prox('Failure', 10);
 };
 
+exports['Promise Resolves from an errorless callback'] = function (test) {
+	test.expect(1);
+	var prox = proxmis({noError: true});
+
+	prox.then(
+		function (result) {
+			test.equal(result, 20);
+			test.done();
+		},
+		function (error) {
+			test.ok(false, 'Promise Rejected');
+			test.done();
+		}
+	);
+
+	prox(20, 10);
+};
+
+exports['Promise Resolves with all arguments'] = function (test) {
+	test.expect(1);
+	var prox = proxmis({allArgs: true});
+
+	prox.then(
+		function (result) {
+			test.deepEqual(result, [20, 10]);
+			test.done();
+		},
+		function (error) {
+			test.ok(false, 'Promise Rejected');
+			test.done();
+		}
+	);
+
+	prox(20, 10);
+};
