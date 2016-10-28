@@ -64,5 +64,3 @@ proxmis.wrap(function (callback) {
 	//received folder stats
 });
 ```
-
-Proxmis uses the [ES6 Promise Polyfill](https://github.com/jakearchibald/es6-promise) to generate the promise it returns.
