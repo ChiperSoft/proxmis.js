@@ -1,6 +1,6 @@
 {
   "name": "proxmis",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "A generator for creating promises that can be used as node.js callbacks.",
   "main": "proxmis.js",
   "scripts": {
