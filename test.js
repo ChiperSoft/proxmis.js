@@ -1,238 +1,238 @@
 
+var test = require('tap').test;
 var proxmis = require('./proxmis');
-var Promise = require('es6-promise').Promise;
 
-exports['Promise Resolves'] = function (test) {
-	test.expect(1);
+test('Promise Resolves', (t) => {
+	t.plan(1);
 	var prox = proxmis();
 
 	prox.then(
 		function (result) {
-			test.equal(result, 10);
-			test.done();
+			t.equal(result, 10);
+			t.done();
 		},
 		function (error) {
-			test.ok(false, 'Promise Rejected');
-			test.done();
+			t.ok(false, 'Promise Rejected');
+			t.done();
 		}
 	);
 
 	prox(null, 10);
-};
+});
 
-exports['Promise Rejects'] = function (test) {
-	test.expect(1);
+test('Promise Rejects', (t) => {
+	t.plan(1);
 	var prox = proxmis();
 
 	prox.then(
 		function (result) {
-			test.ok(false, 'Promise Resolved');
-			test.done();
+			t.ok(false, 'Promise Resolved');
+			t.done();
 		},
 		function (error) {
-			test.equal(error, 'Failure');
-			test.done();
+			t.equal(error, 'Failure');
+			t.done();
 		}
 	);
 
 	prox('Failure', 10);
-};
+});
 
-exports['Promise Resolves - With Callback'] = function (test) {
-	test.expect(3);
+test('Promise Resolves - With Callback', (t) => {
+	t.plan(3);
 	var prox = proxmis(function (err, result) {
-		test.equal(result, 10);
-		test.equal(err, null);
+		t.equal(result, 10);
+		t.equal(err, null);
 	});
 
 	prox.then(
 		function (result) {
-			test.equal(result, 10);
-			test.done();
+			t.equal(result, 10);
+			t.done();
 		},
 		function (error) {
-			test.ok(false, 'Promise Rejected');
-			test.done();
+			t.ok(false, 'Promise Rejected');
+			t.done();
 		}
 	);
 
 	prox(null, 10);
-};
+});
 
-exports['Promise Rejects - With Callback'] = function (test) {
-	test.expect(3);
+test('Promise Rejects - With Callback', (t) => {
+	t.plan(3);
 	var prox = proxmis(function (err, result) {
-		test.equal(result, 10);
-		test.equal(err, 'Failure');
+		t.equal(result, 10);
+		t.equal(err, 'Failure');
 	});
 
 	prox.then(
 		function (result) {
-			test.ok(false, 'Promise Resolved');
-			test.done();
+			t.ok(false, 'Promise Resolved');
+			t.done();
 		},
 		function (error) {
-			test.equal(error, 'Failure');
-			test.done();
+			t.equal(error, 'Failure');
+			t.done();
 		}
 	);
 
 	prox('Failure', 10);
-};
+});
 
-exports['Casts ES6 promise, and resolves'] = function (test) {
-	test.expect(1);
+test('Casts ES6 promise, and resolves', (t) => {
+	t.plan(1);
 	var prox = proxmis();
-	var prom = Promise.cast(prox);
+	var prom = Promise.resolve(prox);
 
 	prom.then(
 		function (result) {
-			test.equal(result, 10);
-			test.done();
+			t.equal(result, 10);
+			t.done();
 		},
 		function (error) {
-			test.ok(false, 'Promise Rejected');
-			test.done();
+			t.ok(false, 'Promise Rejected');
+			t.done();
 		}
 	);
 
 	prox(null, 10);
-};
+});
 
-exports['Casts ES6 promise, and rejects'] = function (test) {
-	test.expect(1);
+test('Casts ES6 promise, and rejects', (t) => {
+	t.plan(1);
 	var prox = proxmis();
-	var prom = Promise.cast(prox);
+	var prom = Promise.resolve(prox);
 
 	prom.then(
 		function (result) {
-			test.ok(false, 'Promise Resolved');
-			test.done();
+			t.ok(false, 'Promise Resolved');
+			t.done();
 		},
 		function (error) {
-			test.equal(error, 'Failure');
-			test.done();
+			t.equal(error, 'Failure');
+			t.done();
 		}
 	);
 
 	prox('Failure', 10);
-};
+});
 
-exports['Wrapper with a resolve'] = function (test) {
-	test.expect(2);
+test('Wrapper with a resolve', (t) => {
+	t.plan(2);
 
 	proxmis.wrap(function (callback) {
-		test.ok('Invoked');
+		t.ok('Invoked');
 		callback(null, 10);
 	}).then(
 		function (result) {
-			test.equal(result, 10);
-			test.done();
+			t.equal(result, 10);
+			t.done();
 		},
 		function (error) {
-			test.ok(false, 'Promise Rejected');
-			test.done();
+			t.ok(false, 'Promise Rejected');
+			t.done();
 		}
 	);
-};
+});
 
-exports['Wrapper with a rejection'] = function (test) {
-	test.expect(2);
+test('Wrapper with a rejection', (t) => {
+	t.plan(2);
 
 	proxmis.wrap(function (callback) {
-		test.ok('Invoked');
+		t.ok('Invoked');
 		callback('Failure', 10);
 	}).then(
 		function (result) {
-			test.ok(false, 'Promise Resolved');
-			test.done();
+			t.ok(false, 'Promise Resolved');
+			t.done();
 		},
 		function (error) {
-			test.equal(error, 'Failure');
-			test.done();
+			t.equal(error, 'Failure');
+			t.done();
 		}
 	);
-};
+});
 
-exports['Chained then'] = function (test) {
-	test.expect(2);
+test('Chained then', (t) => {
+	t.plan(2);
 
 	var prox = proxmis();
 
 	var defer = prox.then(function (result) {
-		test.ok(true);
+		t.ok(true);
 		return result;
 	});
 	defer = defer.then(function (result) {
-		test.equal(result, 10);
-		test.done();
+		t.equal(result, 10);
+		t.done();
 	});
 
 	prox(null, 10);
-};
+});
 
-exports['Promise Rejects into .catch()'] = function (test) {
-	test.expect(1);
+test('Promise Rejects into .catch()', (t) => {
+	t.plan(1);
 	var prox = proxmis();
 
 	prox.catch(function (error) {
-		test.equal(error, 'Failure');
-		test.done();
+		t.equal(error, 'Failure');
+		t.done();
 	});
 
 	prox('Failure', 10);
-};
+});
 
-exports['Promise Resolves from an errorless callback'] = function (test) {
-	test.expect(1);
+test('Promise Resolves from an errorless callback', (t) => {
+	t.plan(1);
 	var prox = proxmis({noError: true});
 
 	prox.then(
 		function (result) {
-			test.equal(result, 20);
-			test.done();
+			t.equal(result, 20);
+			t.done();
 		},
 		function (error) {
-			test.ok(false, 'Promise Rejected');
-			test.done();
+			t.ok(false, 'Promise Rejected');
+			t.done();
 		}
 	);
 
 	prox(20, 10);
-};
+});
 
-exports['Promise Resolves with all arguments'] = function (test) {
-	test.expect(1);
+test('Promise Resolves with all arguments', (t) => {
+	t.plan(1);
 	var prox = proxmis({allArgs: true});
 
 	prox.then(
 		function (result) {
-			test.deepEqual(result, [20, 10]);
-			test.done();
+			t.deepEqual(result, [20, 10]);
+			t.done();
 		},
 		function (error) {
-			test.ok(false, 'Promise Rejected');
-			test.done();
+			t.ok(false, 'Promise Rejected');
+			t.done();
 		}
 	);
 
 	prox(20, 10);
-};
+});
 
-exports['Wrapper supports options'] = function (test) {
-	test.expect(2);
+test('Wrapper supports options', (t) => {
+	t.plan(2);
 
 	proxmis.wrap(function (callback) {
-		test.ok('Invoked');
+		t.ok('Invoked');
 		callback(10);
 	}, {noError:true}).then(
 		function (result) {
-			test.equal(result, 10);
-			test.done();
+			t.equal(result, 10);
+			t.done();
 		},
 		function (error) {
-			test.ok(false, 'Promise Rejected');
-			test.done();
+			t.ok(false, 'Promise Rejected');
+			t.done();
 		}
 	);
-};
+});

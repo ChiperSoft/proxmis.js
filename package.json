@@ -4,7 +4,7 @@
   "description": "A generator for creating promises that can be used as node.js callbacks.",
   "main": "proxmis.js",
   "scripts": {
-    "test": "nodeunit test.js"
+    "test": "tap test.js"
   },
   "engines": {
     "node": ">=4.2"
@@ -20,6 +20,6 @@
   "author": "Jarvis Badgley <chiper@chipersoft.com> (http://chipersoft.com/)",
   "license": "MIT",
   "devDependencies": {
-    "nodeunit": "~0.8.6"
+    "tap": "~8.0.0"
   }
 }
