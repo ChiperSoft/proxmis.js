@@ -1,7 +1,5 @@
 
-var Promise = require('es6-promise').Promise;
-
-var proxmis = function (options) {
+module.exports = exports = function proxmis (options) {
 	var defer, callable;
 	var callback;
 	if (typeof options === 'function') {
@@ -46,10 +44,8 @@ var proxmis = function (options) {
 	return callable;
 };
 
-proxmis.wrap = function (actionable, options) {
-	var proxy = proxmis(options);
+exports.wrap = function (actionable, options) {
+	var proxy = exports(options);
 	actionable(proxy);
 	return proxy;
 };
-
-module.exports = proxmis;
