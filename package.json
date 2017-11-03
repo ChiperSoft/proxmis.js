@@ -15,9 +15,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ChiperSoft/proxmis.js.git"
+    "url": "https://github.com/Twipped/proxmis.js.git"
   },
-  "author": "Jarvis Badgley <chiper@chipersoft.com> (http://chipersoft.com/)",
+  "author": "Jocelyn Badgley <joc@twipped.com>",
   "license": "MIT",
   "devDependencies": {
     "tap": "~10.0.0"
